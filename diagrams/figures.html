@@ -1,0 +1,1107 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Cordis 教程 · 插图源</title>
+<style>
+  :root {
+    --ink:#0F172A; --muted:#64748B; --line:#CBD5E1;
+    --blue:#4D6BFE; --blue-dark:#3730A3; --blue-weak:#EEF2FF;
+    --teal:#0F766E; --teal-weak:#ECFDF5;
+    --amber:#B45309; --amber-weak:#FFFBEB;
+    --red:#B91C1C; --red-weak:#FEF2F2;
+    --violet:#6D28D9; --violet-weak:#F5F3FF;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:#fff; }
+  body { font-family:"Microsoft YaHei","Noto Sans SC","PingFang SC",sans-serif; -webkit-font-smoothing:antialiased; }
+  .figure { width:1100px; height:640px; overflow:hidden; }
+  .canvas {
+    position:relative; width:1100px; height:640px; overflow:hidden;
+    background:
+      radial-gradient(circle at 1px 1px, rgba(148,163,184,.16) 1px, transparent 0) 0 0/24px 24px,
+      linear-gradient(135deg,#ffffff 0%,#F8FAFC 60%,#EEF2FF 100%);
+  }
+  .canvas.dark { background:linear-gradient(135deg,#0B1220 0%,#111C33 48%,#1E1B4B 100%); color:#E2E8F0; }
+  .kicker { position:absolute; left:48px; top:32px; font-size:12px; letter-spacing:.16em; font-weight:700; color:var(--blue); }
+  .canvas.dark .kicker { color:#A5B4FC; }
+  h2 { position:absolute; left:48px; top:54px; margin:0; font-size:30px; line-height:1.2; color:var(--ink); letter-spacing:-.02em; }
+  .canvas.dark h2 { color:#F8FAFC; }
+  .sub { position:absolute; left:48px; top:96px; font-size:13.5px; color:var(--muted); }
+  .fig-no { position:absolute; right:40px; bottom:20px; font-size:11.5px; color:#94A3B8; letter-spacing:.08em; }
+
+  .node { position:absolute; padding:13px 15px; border-radius:14px; background:#fff; border:1.5px solid var(--line); box-shadow:0 8px 20px rgba(15,23,42,.06); }
+  .node .t { font-size:16px; font-weight:700; color:var(--ink); line-height:1.25; }
+  .node .s { margin-top:4px; font-size:12.5px; color:var(--muted); line-height:1.45; }
+  .node .tag { display:inline-block; margin-top:8px; padding:2px 7px; border-radius:999px; font-size:10.5px; font-weight:700; letter-spacing:.04em; }
+  .node.blue { background:linear-gradient(180deg,#fff,var(--blue-weak)); border-color:#C7D2FE; }
+  .node.blue .t { color:var(--blue-dark); }
+  .node.teal { background:linear-gradient(180deg,#fff,var(--teal-weak)); border-color:#99F6E4; }
+  .node.teal .t { color:#115E59; }
+  .node.amber { background:linear-gradient(180deg,#fff,var(--amber-weak)); border-color:#FDE68A; }
+  .node.amber .t { color:#92400E; }
+  .node.violet { background:linear-gradient(180deg,#fff,var(--violet-weak)); border-color:#DDD6FE; }
+  .node.violet .t { color:#5B21B6; }
+  .node.red { background:linear-gradient(180deg,#fff,var(--red-weak)); border-color:#FECACA; }
+  .node.red .t { color:#991B1B; }
+  .node.ghost { background:rgba(255,255,255,.72); border-style:dashed; }
+  .node.center { text-align:center; }
+
+  .pill { display:inline-flex; align-items:center; gap:6px; padding:4px 9px; border-radius:999px; font-size:11px; font-weight:700; }
+  .pill.blue { background:var(--blue-weak); color:var(--blue-dark); }
+  .pill.teal { background:var(--teal-weak); color:#115E59; }
+  .pill.amber { background:var(--amber-weak); color:#92400E; }
+  .pill.red { background:var(--red-weak); color:#991B1B; }
+  .pill.violet { background:var(--violet-weak); color:#5B21B6; }
+  .pill.slate { background:#F1F5F9; color:#475569; }
+
+  .arrow { position:absolute; background:#94A3B8; }
+  .arrow.h { height:2px; }
+  .arrow.h::after { content:''; position:absolute; right:-1px; top:-4.5px; border-left:9px solid #94A3B8; border-top:5.5px solid transparent; border-bottom:5.5px solid transparent; }
+  .arrow.v { width:2px; }
+  .arrow.v::after { content:''; position:absolute; bottom:-1px; left:-4.5px; border-top:9px solid #94A3B8; border-left:5.5px solid transparent; border-right:5.5px solid transparent; }
+  .arrow.left::after { right:auto; left:-1px; top:-4.5px; border-left:none; border-right:9px solid #94A3B8; border-top:5.5px solid transparent; border-bottom:5.5px solid transparent; }
+  .arrow.up::after { bottom:auto; top:-1px; left:-4.5px; border-top:none; border-bottom:9px solid #94A3B8; border-left:5.5px solid transparent; border-right:5.5px solid transparent; }
+  .arrow.dashed { background:repeating-linear-gradient(90deg,#94A3B8 0 6px,transparent 6px 11px); }
+  .arrow.v.dashed { background:repeating-linear-gradient(180deg,#94A3B8 0 6px,transparent 6px 11px); }
+  .alabel { position:absolute; padding:2px 6px; border-radius:5px; background:#fff; color:#475569; font-size:11px; font-weight:600; white-space:nowrap; }
+
+  .code { position:absolute; padding:14px 16px; border-radius:12px; background:#0F172A; color:#E2E8F0; font-family:Consolas,"Cascadia Code",monospace; font-size:12.5px; line-height:1.65; box-shadow:0 10px 24px rgba(15,23,42,.18); white-space:pre; }
+  .code.light { background:#F8FAFC; color:#0F172A; border:1px solid var(--line); box-shadow:none; }
+  .code.term { background:#0B1220; border:1px solid #1E293B; }
+  .code .k { color:#93C5FD; }
+  .code .s { color:#86EFAC; }
+  .code .c { color:#64748B; }
+  .code .f { color:#FDE68A; }
+  .code .p { color:#C4B5FD; }
+  .code .r { color:#FCA5A5; }
+  .code .g { color:#5EEAD4; }
+
+  .note { position:absolute; padding:11px 14px; border-radius:12px; background:#fff; border:1px solid var(--line); box-shadow:0 6px 16px rgba(15,23,42,.05); font-size:12.5px; color:#475569; line-height:1.55; }
+  .note b { color:var(--ink); }
+  .note.blue { background:var(--blue-weak); border-color:#C7D2FE; }
+  .note.amber { background:var(--amber-weak); border-color:#FDE68A; }
+  .note.red { background:var(--red-weak); border-color:#FECACA; }
+  .note.teal { background:var(--teal-weak); border-color:#99F6E4; }
+  .note.violet { background:var(--violet-weak); border-color:#DDD6FE; }
+
+  table.grid { position:absolute; border-collapse:collapse; background:#fff; box-shadow:0 8px 22px rgba(15,23,42,.07); border-radius:12px; overflow:hidden; font-size:12.5px; }
+  table.grid th { background:#1E293B; color:#E2E8F0; font-weight:700; text-align:left; padding:9px 12px; font-size:12px; letter-spacing:.02em; }
+  table.grid td { border-top:1px solid #E2E8F0; padding:9px 12px; color:#334155; line-height:1.4; vertical-align:top; }
+  table.grid tr:nth-child(even) td { background:#F8FAFC; }
+  table.grid td b { color:var(--ink); }
+  table.grid code, .mono { font-family:Consolas,"Cascadia Code",monospace; font-size:11.8px; background:#F1F5F9; padding:1px 5px; border-radius:4px; color:#0F172A; }
+
+  .lane { position:absolute; border-radius:14px; background:rgba(255,255,255,.62); border:1px dashed #CBD5E1; }
+  .lane .lt { position:absolute; left:14px; top:10px; font-size:11px; font-weight:800; letter-spacing:.1em; color:#94A3B8; }
+
+  .num { position:absolute; width:26px; height:26px; border-radius:50%; background:var(--blue); color:#fff; font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center; }
+  .num.teal { background:var(--teal); } .num.amber { background:var(--amber); } .num.red { background:#DC2626; } .num.violet { background:var(--violet); }
+</style>
+</head>
+<body>
+
+<!-- ───────────────────────── 封面 ───────────────────────── -->
+<section class="figure" id="fig-cover">
+  <div class="canvas dark">
+    <div class="kicker">CORDIS · PLUGIN FRAMEWORK</div>
+    <div style="position:absolute;left:60px;top:118px;width:560px">
+      <div style="font-size:74px;line-height:1;font-weight:800;color:#F8FAFC;letter-spacing:-.05em">Cordis</div>
+      <div style="margin-top:14px;font-size:34px;font-weight:700;color:#E2E8F0">教程</div>
+      <div style="margin-top:20px;font-size:16.5px;line-height:1.8;color:#94A3B8;width:490px">官方七章实践 + 源码走读。<br>把插件、上下文、服务、事件与 effect 一次讲透。</div>
+      <div style="margin-top:26px;display:flex;gap:10px;flex-wrap:wrap">
+        <span class="pill" style="background:rgba(165,180,252,.14);color:#C7D2FE">cordis 4.0.6-alpha.1</span>
+        <span class="pill" style="background:rgba(45,212,191,.12);color:#99F6E4">10 章 + 3 附录</span>
+        <span class="pill" style="background:rgba(251,191,36,.12);color:#FDE68A">示例实测输出</span>
+      </div>
+    </div>
+    <svg width="450" height="470" viewBox="0 0 450 470" style="position:absolute;right:26px;top:88px" aria-label="上下文与服务树">
+      <defs>
+        <radialGradient id="coverGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#4D6BFE" stop-opacity=".3"/>
+          <stop offset="100%" stop-color="#4D6BFE" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="225" cy="235" r="158" fill="url(#coverGlow)"/>
+      <g stroke="#64748B" stroke-width="1.5">
+        <line x1="225" y1="185" x2="225" y2="86"/>
+        <line x1="160" y1="235" x2="70" y2="235"/>
+        <line x1="290" y1="235" x2="380" y2="235"/>
+        <line x1="178" y1="285" x2="105" y2="378"/>
+        <line x1="272" y1="285" x2="345" y2="378"/>
+      </g>
+      <circle cx="225" cy="235" r="52" fill="rgba(77,107,254,.16)" stroke="#818CF8" stroke-width="2"/>
+      <text x="225" y="231" text-anchor="middle" fill="#E0E7FF" font-size="16" font-weight="700">Context</text>
+      <text x="225" y="252" text-anchor="middle" fill="#A5B4FC" font-size="12">ctx</text>
+      <g font-size="12.5" fill="#CBD5E1" text-anchor="middle">
+        <circle cx="225" cy="86" r="30" fill="rgba(15,118,110,.18)" stroke="#5EEAD4" stroke-width="1.5"/>
+        <text x="225" y="91" fill="#99F6E4">tools</text>
+        <circle cx="70" cy="235" r="30" fill="rgba(180,83,9,.16)" stroke="#FCD34D" stroke-width="1.5"/>
+        <text x="70" y="240" fill="#FDE68A">llm</text>
+        <circle cx="380" cy="235" r="30" fill="rgba(109,40,217,.18)" stroke="#C4B5FD" stroke-width="1.5"/>
+        <text x="380" y="240" fill="#DDD6FE">timer</text>
+        <circle cx="105" cy="378" r="30" fill="rgba(255,255,255,.06)" stroke="#94A3B8" stroke-width="1.5"/>
+        <text x="105" y="383">loader</text>
+        <circle cx="345" cy="378" r="30" fill="rgba(255,255,255,.06)" stroke="#94A3B8" stroke-width="1.5"/>
+        <text x="345" y="383">logger</text>
+      </g>
+    </svg>
+    <div class="fig-no">Cordis 教程 · 基于 deepseek-harness 源码</div>
+  </div>
+</section>
+
+<!-- ───────────────────────── 第 1 章 ───────────────────────── -->
+<section class="figure" id="fig-five-concepts">
+  <div class="canvas">
+    <div class="kicker">图 1-1 · 心智模型</div>
+    <h2>Cordis 的五个概念</h2>
+    <div class="sub">一切都围绕一个共享上下文展开：插件往里注册，别处按名字取用。</div>
+
+    <div class="node blue" style="left:418px;top:186px;width:264px;padding:16px">
+      <div class="t">Context（上下文）</div>
+      <div class="s">服务容器 + 注册入口 + 生命周期边界。<br>插件拿到的 <code style="font-family:Consolas,monospace">ctx</code> 就是它。</div>
+      <span class="tag" style="background:#C7D2FE;color:#3730A3">1 个根 ctx，可扩展出子作用域</span>
+    </div>
+
+    <div class="node teal" style="left:70px;top:160px;width:250px">
+      <div class="t">插件 Plugin</div>
+      <div class="s">导出 <code style="font-family:Consolas,monospace">apply(ctx)</code> 的函数、带 apply 的对象，或 Service 子类。</div>
+      <span class="tag" style="background:#99F6E4;color:#115E59">贡献能力的单位</span>
+    </div>
+
+    <div class="node amber" style="left:70px;top:396px;width:250px">
+      <div class="t">服务 Service</div>
+      <div class="s">具名能力，挂在 <code style="font-family:Consolas,monospace">ctx.&lt;name&gt;</code> 上供他人消费。</div>
+      <span class="tag" style="background:#FDE68A;color:#92400E">替换提供方，不改消费方</span>
+    </div>
+
+    <div class="node violet" style="left:780px;top:160px;width:250px">
+      <div class="t">事件 Event</div>
+      <div class="s">类型化通知；发出方不需要知道谁在听。</div>
+      <span class="tag" style="background:#DDD6FE;color:#5B21B6">5 种分发模式</span>
+    </div>
+
+    <div class="node red" style="left:780px;top:396px;width:250px">
+      <div class="t">effect</div>
+      <div class="s">可逆注册。插件卸载时，它留下的痕迹被自动撤销。</div>
+      <span class="tag" style="background:#FECACA;color:#991B1B">热重载的前提</span>
+    </div>
+
+    <div class="arrow h dashed" style="left:322px;top:215px;width:94px"></div>
+    <div class="arrow h dashed left" style="left:322px;top:245px;width:94px"></div>
+    <div class="arrow h dashed" style="left:684px;top:215px;width:94px"></div>
+    <div class="arrow h dashed left" style="left:684px;top:245px;width:94px"></div>
+    <div class="arrow v dashed" style="left:196px;top:280px;width:2px;height:114px"></div>
+    <div class="arrow v dashed" style="left:904px;top:280px;width:2px;height:114px"></div>
+
+    <div class="note blue" style="left:418px;top:452px;width:264px"><b>一句话</b>：插件向 ctx 注册；依赖用 inject 声明；注册都可撤销。</div>
+    <div class="fig-no">Cordis 教程 · 第 1 章</div>
+  </div>
+</section>
+
+<section class="figure" id="fig-two-repos">
+  <div class="canvas">
+    <div class="kicker">图 1-2 · 你要读的是哪一份 Cordis</div>
+    <h2>vendor 副本与上游仓库</h2>
+    <div class="sub">同一套核心有两个来源；本教程的命令跑的是 vendor 副本。</div>
+
+    <div class="lane" style="left:56px;top:150px;width:470px;height:330px"><div class="lt">DEEPSEEK-HARNESS/VENDOR</div></div>
+    <div class="lane" style="left:574px;top:150px;width:470px;height:330px"><div class="lt">CORDIS 上游仓库</div></div>
+
+    <div class="node blue" style="left:86px;top:196px;width:410px">
+      <div class="t">@deepseek-ai/cordis 4.0.6-alpha.1</div>
+      <div class="s"><code style="font-family:Consolas,monospace">vendor/cordis/bin.js</code> 是本教程的运行入口；<code style="font-family:Consolas,monospace">vendor/loader</code>、<code style="font-family:Consolas,monospace">vendor/include</code> 等提供配置加载。</div>
+      <span class="tag" style="background:#C7D2FE;color:#3730A3">harness 实际使用</span>
+    </div>
+
+    <div class="node teal" style="left:604px;top:196px;width:410px">
+      <div class="t">cordis 4.0.0-rc.12（包名 cordis）</div>
+      <div class="s">同名插件包使用 <code style="font-family:Consolas,monospace">@cordisjs/*</code> 前缀；核心逻辑等价，版本略旧。</div>
+      <span class="tag" style="background:#99F6E4;color:#115E59">概念与测试的参考</span>
+    </div>
+
+    <div class="note amber" style="left:86px;top:322px;width:410px"><b>命名差异</b>：写 <code class="mono">cordis.yml</code> 时用 <code class="mono">@deepseek-ai/cordis-plugin-loader</code>、<code class="mono">@deepseek-ai/dsh-hmr</code>；上游文档里的 <code class="mono">@cordisjs/plugin-loader</code> 在本检出里不可 import。</div>
+
+    <div class="note violet" style="left:604px;top:322px;width:410px"><b>差异示例</b>：vendor 的 Context 有真实 <code class="mono">root</code> 属性，上游用 <code class="mono">symbols.root</code>；Service 的截获符号命名也不同。核心 API 名称一致。</div>
+
+    <div class="node ghost" style="left:86px;top:414px;width:410px;padding:10px 14px">
+      <div class="s" style="margin-top:0"><code class="mono">vendor/cordis</code> · <code class="mono">vendor/loader</code> · <code class="mono">vendor/include</code> · <code class="mono">vendor/group</code> · <code class="mono">vendor/hmr</code> · <code class="mono">vendor/timer</code> · <code class="mono">vendor/logger-console</code></div>
+    </div>
+    <div class="node ghost" style="left:604px;top:414px;width:410px;padding:10px 14px">
+      <div class="s" style="margin-top:0"><code class="mono">cordis/packages/core</code> · <code class="mono">loader</code> · <code class="mono">include</code> · <code class="mono">group</code> · <code class="mono">hmr</code> · <code class="mono">timer</code> · <code class="mono">logger-console</code> · <code class="mono">fs-node</code> · <code class="mono">create</code></div>
+    </div>
+
+    <div class="fig-no">Cordis 教程 · 第 1 章</div>
+  </div>
+</section>
+
+<!-- ───────────────────────── 第 2 章 ───────────────────────── -->
+<section class="figure" id="fig-boot-anatomy">
+  <div class="canvas">
+    <div class="kicker">图 2-1 · 启动解剖</div>
+    <h2>一行命令背后发生了什么</h2>
+    <div class="sub">bin.js 只有 16 行；它不启动应用，只挂载 Loader，剩下的都来自 cordis.yml。</div>
+
+    <div class="code" style="left:56px;top:150px;width:330px"><span class="c"># 16 行的启动器（vendor/cordis/bin.js）</span>
+<span class="k">const</span> ctx = <span class="k">new</span> <span class="f">Context</span>()
+ctx.<span class="p">baseUrl</span> = pathToFileURL(<span class="g">process.cwd()</span>).href + <span class="s">'/'</span>
+<span class="k">await</span> ctx.<span class="f">plugin</span>(Loader)
+<span class="k">await</span> ctx.loader.<span class="f">create</span>({
+  name: <span class="s">'@deepseek-ai/cordis-plugin-include'</span>,
+  config: { path: <span class="s">'./cordis.yml'</span> },
+})</div>
+
+    <div class="num" style="left:404px;top:158px">1</div>
+    <div class="node" style="left:440px;top:150px;width:290px">
+      <div class="t">创建根 Context</div>
+      <div class="s">返回的是 Proxy；Reflect / Registry / Events / Logger 四个内置服务先就位。</div>
+    </div>
+
+    <div class="num" style="left:404px;top:262px">2</div>
+    <div class="node blue" style="left:440px;top:254px;width:290px">
+      <div class="t">挂载 Loader 插件</div>
+      <div class="s">提供服务 <code class="mono">loader</code>；配置项本身也是插件，因此需要它先存在。</div>
+    </div>
+
+    <div class="num" style="left:404px;top:366px">3</div>
+    <div class="node teal" style="left:440px;top:358px;width:290px">
+      <div class="t">Include 读取 cordis.yml</div>
+      <div class="s">把 <code class="mono">baseUrl</code> 重新指向 yml 所在目录，于是 <code class="mono">./hello.ts</code> 相对配置文件解析。</div>
+    </div>
+
+    <div class="num" style="left:404px;top:470px">4</div>
+    <div class="node amber" style="left:440px;top:462px;width:290px">
+      <div class="t">每个配置项 → 一个子插件</div>
+      <div class="s">Loader 调用 <code class="mono">ctx.plugin(...)</code> 挂载；<code class="mono">apply</code> 由 Cordis 调用。</div>
+    </div>
+
+    <div class="node violet" style="left:760px;top:254px;width:284px">
+      <div class="t">进程何时退出</div>
+      <div class="s">没有任何东西保持事件循环活跃时，Node 自行退出。Cordis 不调用 <code class="mono">process.exit</code>。</div>
+      <span class="tag" style="background:#DDD6FE;color:#5B21B6">PENDING 的插件不保持活跃</span>
+    </div>
+
+    <div class="note red" style="left:760px;top:392px;width:284px"><b>没有框架启动代码</b><br>你的文件只描述自己贡献什么；<code class="mono">cordis.yml</code> 负责组装。</div>
+
+    <div class="arrow h" style="left:388px;top:178px;width:14px"></div>
+    <div class="arrow v dashed" style="left:585px;top:222px;width:2px;height:30px"></div>
+    <div class="arrow v dashed" style="left:585px;top:326px;width:2px;height:30px"></div>
+    <div class="arrow v dashed" style="left:585px;top:430px;width:2px;height:30px"></div>
+    <div class="arrow h dashed" style="left:732px;top:300px;width:26px"></div>
+
+    <div class="fig-no">Cordis 教程 · 第 2 章</div>
+  </div>
+</section>
+
+<section class="figure" id="fig-plugin-forms">
+  <div class="canvas">
+    <div class="kicker">图 2-2 · 三种形态</div>
+    <h2>插件可以是函数、对象，或 Service 子类</h2>
+    <div class="sub">Loader 把它们统一解析成一个可调用体；差别只在是否需要公开服务。</div>
+
+    <div class="code" style="left:56px;top:156px;width:310px"><span class="c">// 1. 函数插件（最常用）</span>
+<span class="k">export const</span> name = <span class="s">'hello'</span>
+<span class="k">export function</span> <span class="f">apply</span>(ctx) {
+  <span class="c">/* 注册 */</span>
+}</div>
+    <div class="node blue" style="left:56px;top:330px;width:310px;padding:11px 14px">
+      <div class="s" style="margin-top:0">解析：函数本身即 apply。<code class="mono">name</code> 只用于诊断。</div>
+      <span class="tag" style="background:#C7D2FE;color:#3730A3">不需要 apply 方法</span>
+    </div>
+
+    <div class="code" style="left:395px;top:156px;width:310px"><span class="c">// 2. 对象插件</span>
+<span class="k">export const</span> objectPlugin = {
+  name: <span class="s">'object-plugin'</span>,
+  <span class="f">apply</span>(ctx) { <span class="c">/* 注册 */</span> },
+}</div>
+    <div class="node teal" style="left:395px;top:330px;width:310px;padding:11px 14px">
+      <div class="s" style="margin-top:0">解析：<code class="mono">plugin.apply</code>。对象形态<b>必须</b>有可调用的 apply。</div>
+      <span class="tag" style="background:#99F6E4;color:#115E59">适合带元数据的工厂</span>
+    </div>
+
+    <div class="code" style="left:734px;top:156px;width:310px"><span class="c">// 3. 类插件（Service 子类）</span>
+<span class="k">export class</span> <span class="f">Greeter</span> <span class="k">extends</span> Service {
+  <span class="f">constructor</span>(ctx) {
+    <span class="k">super</span>(ctx, <span class="s">'greeter'</span>)
+  }
+}</div>
+    <div class="node violet" style="left:734px;top:330px;width:310px;padding:11px 14px">
+      <div class="s" style="margin-top:0">解析：<code class="mono">new</code> 出实例即注册服务。子类本身就是插件。</div>
+      <span class="tag" style="background:#DDD6FE;color:#5B21B6">要公开服务时才用</span>
+    </div>
+
+    <div class="note amber" style="left:56px;top:440px;width:500px"><b>非法形态</b>：既不是函数、也没有可调用 apply 的对象，会得到 <code class="mono">invalid plugin, expect function or object with an "apply" method</code>。</div>
+    <div class="note blue" style="left:576px;top:440px;width:468px"><b>元数据字段</b>：<code class="mono">name</code> · <code class="mono">inject</code> · <code class="mono">Config</code>（Standard Schema）· <code class="mono">provide</code> · <code class="mono">intercept</code>，三种形态通用。</div>
+
+    <div class="fig-no">Cordis 教程 · 第 2 章</div>
+  </div>
+</section>
+
+<!-- ───────────────────────── 第 3 章 ───────────────────────── -->
+<section class="figure" id="fig-fiber-states">
+  <div class="canvas">
+    <div class="kicker">图 3-1 · 状态机</div>
+    <h2>Fiber 的六个状态</h2>
+    <div class="sub">逻辑顺序与源码里的数值顺序不同：DISPOSED 的编号（4）比 UNLOADING（5）小。</div>
+
+    <div class="node amber" style="left:70px;top:206px;width:190px">
+      <div class="t">PENDING <span style="font-weight:400;color:#92400E">0</span></div>
+      <div class="s">已声明，但 inject 的服务还没出现。</div>
+    </div>
+    <div class="node blue" style="left:310px;top:206px;width:190px">
+      <div class="t">LOADING <span style="font-weight:400;color:#3730A3">1</span></div>
+      <div class="s"><code class="mono">apply</code> 正在运行。</div>
+    </div>
+    <div class="node teal" style="left:550px;top:206px;width:190px">
+      <div class="t">ACTIVE <span style="font-weight:400;color:#115E59">2</span></div>
+      <div class="s"><code class="mono">apply</code> 已完成，注册生效。</div>
+    </div>
+    <div class="node violet" style="left:790px;top:206px;width:190px">
+      <div class="t">UNLOADING <span style="font-weight:400;color:#5B21B6">5</span></div>
+      <div class="s">disposer 正在运行。</div>
+    </div>
+    <div class="node" style="left:790px;top:398px;width:190px">
+      <div class="t">DISPOSED <span style="font-weight:400;color:#64748B">4</span></div>
+      <div class="s">全部拆完，从注册表移除。</div>
+    </div>
+    <div class="node red" style="left:310px;top:398px;width:190px">
+      <div class="t">FAILED <span style="font-weight:400;color:#991B1B">3</span></div>
+      <div class="s"><code class="mono">apply</code> 或配置校验抛错。</div>
+    </div>
+
+    <div class="arrow h" style="left:262px;top:240px;width:46px"></div>
+    <div class="arrow h" style="left:502px;top:240px;width:46px"></div>
+    <div class="arrow h" style="left:742px;top:240px;width:46px"></div>
+    <div class="arrow v" style="left:884px;top:302px;width:2px;height:94px"></div>
+    <div class="arrow v left" style="left:404px;top:302px;width:2px;height:94px"></div>
+    <div class="arrow h left" style="left:502px;top:440px;width:236px"></div>
+    <div class="arrow v up" style="left:164px;top:120px;width:2px;height:84px"></div>
+    <div class="arrow h dashed" style="left:262px;top:150px;width:530px"></div>
+    <div class="alabel" style="left:470px;top:132px">服务恢复后重新加载</div>
+
+    <div class="note red" style="left:70px;top:496px;width:430px"><b>FAILED 不是跳过</b><br>教程启动器会打印错误并以状态码 1 退出；配置校验失败同样落到这里。</div>
+    <div class="note blue" style="left:550px;top:496px;width:430px"><b>PENDING 会静默</b><br>等待中的 fiber 不保持事件循环活跃；没有别的运行项时进程以 0 退出，不留一行日志。</div>
+
+    <div class="fig-no">Cordis 教程 · 第 3 章</div>
+  </div>
+</section>
+
+<section class="figure" id="fig-effect-order">
+  <div class="canvas">
+    <div class="kicker">图 3-2 · 卸载顺序</div>
+    <h2>disposer 的启动顺序 ≠ 完成顺序</h2>
+    <div class="sub">同一 effect 内按注册逆序、逐个 await；fiber 级则把各 effect 的清理并发跑完。</div>
+
+    <div class="lane" style="left:56px;top:158px;width:470px;height:200px"><div class="lt">同一个 EFFECT 内</div></div>
+    <div class="lane" style="left:574px;top:158px;width:470px;height:200px"><div class="lt">FIBER 卸载时（跨 EFFECT）</div></div>
+
+    <div class="node" style="left:86px;top:204px;width:120px"><div class="t" style="font-size:14px">注册 A</div></div>
+    <div class="node" style="left:86px;top:276px;width:120px"><div class="t" style="font-size:14px">注册 B</div></div>
+    <div class="arrow v" style="left:214px;top:214px;width:2px;height:66px"></div>
+    <div class="node teal" style="left:234px;top:200px;width:120px"><div class="t" style="font-size:14px">先 C</div><div class="s">同步</div></div>
+    <div class="node teal" style="left:234px;top:272px;width:120px"><div class="t" style="font-size:14px">再 B</div><div class="s">await</div></div>
+    <div class="node teal" style="left:374px;top:272px;width:120px"><div class="t" style="font-size:14px">最后 A</div><div class="s">await</div></div>
+    <div class="arrow h" style="left:356px;top:232px;width:16px"></div>
+    <div class="arrow h" style="left:356px;top:304px;width:16px"></div>
+    <div class="alabel" style="left:196px;top:170px">splice(0).reverse() 逐个串接</div>
+
+    <div class="node amber" style="left:604px;top:204px;width:130px"><div class="t" style="font-size:14px">effect C</div><div class="s">立即返回</div></div>
+    <div class="node amber" style="left:752px;top:204px;width:130px"><div class="t" style="font-size:14px">effect B</div><div class="s">异步 60ms</div></div>
+    <div class="node amber" style="left:900px;top:204px;width:110px"><div class="t" style="font-size:14px">effect A</div><div class="s">立即返回</div></div>
+    <div class="note blue" style="left:604px;top:278px;width:406px;padding:9px 12px"><b>同一时刻启动</b>（<code class="mono">Promise.all</code>）：A、C 早已结束，B 还在等。<br>结论：需要严格按序释放的资源，请放进同一个 disposer。</div>
+
+    <div class="code term" style="left:56px;top:396px;width:488px;font-size:12px">实测（exp-order.ts，C 同步 / B 异步 60ms / A 同步）
+A setup · B setup · C setup
+--- dispose ---
+C dispose (sync)
+A dispose (sync)
+B dispose (async, 60ms)
+--- dispose settled ---</div>
+
+    <div class="code term" style="left:574px;top:396px;width:470px;font-size:12px">源码位置
+vendor/cordis/src/fiber.ts
+  effect dispose … <span class="f">disposables.splice(0).reverse()</span>
+  _unload() … <span class="f">await Promise.all(this._disposables.clear())</span>
+vendor/cordis/src/utils.ts
+  DisposableList.clear() → <span class="g">reverse 后的数组</span></div>
+
+    <div class="fig-no">Cordis 教程 · 第 3 章</div>
+  </div>
+</section>
+
+<!-- ───────────────────────── 第 4 章 ───────────────────────── -->
+<section class="figure" id="fig-service-flow">
+  <div class="canvas">
+    <div class="kicker">图 4-1 · 服务</div>
+    <h2>提供方注册名字，消费方声明依赖</h2>
+    <div class="sub">两条路都能到达同一个实例：类型上的 <code style="font-family:Consolas,monospace">ctx.greeter</code>，运行时的 <code style="font-family:Consolas,monospace">ctx.get('greeter')</code>。</div>
+
+    <div class="node blue" style="left:70px;top:178px;width:300px">
+      <div class="t">提供方 greeter.ts</div>
+      <div class="s"><code class="mono">class GreeterService extends Service</code><br><code class="mono">super(ctx, 'greeter')</code> → 注册进注册表</div>
+      <span class="tag" style="background:#C7D2FE;color:#3730A3">注册属于 effect</span>
+    </div>
+
+    <div class="node" style="left:430px;top:178px;width:230px">
+      <div class="t">Registry（注册表）</div>
+      <div class="s">name → 实现 + 提供它的 fiber。<br>每个应用一份，扁平命名空间。</div>
+    </div>
+
+    <div class="node teal" style="left:720px;top:178px;width:310px">
+      <div class="t">消费方 consumer.ts</div>
+      <div class="s"><code class="mono">export const inject = ['greeter']</code><br><code class="mono">ctx.greeter.greet('world')</code></div>
+      <span class="tag" style="background:#99F6E4;color:#115E59">不 import 提供方</span>
+    </div>
+
+    <div class="arrow h" style="left:372px;top:220px;width:56px"></div>
+    <div class="arrow h left" style="left:662px;top:220px;width:56px"></div>
+
+    <div class="node violet" style="left:70px;top:330px;width:300px">
+      <div class="t">编译期那一半</div>
+      <div class="s"><code class="mono">declare module '@deepseek-ai/cordis'</code><br>给 <code class="mono">Context</code> 接口加一行 <code class="mono">greeter</code>。不产生任何运行时代码。</div>
+    </div>
+
+    <div class="node amber" style="left:430px;top:330px;width:230px">
+      <div class="t">可选依赖</div>
+      <div class="s">不写 inject，改用 <code class="mono">ctx.get('x')</code>；缺失时返回 undefined，插件照常启动。</div>
+    </div>
+
+    <div class="node ghost" style="left:720px;top:330px;width:310px">
+      <div class="t">启动时机</div>
+      <div class="s"><code class="mono">cordis.yml</code> 里的行序不影响启动：谁先 ACTIVE 由依赖决定，不是谁写在前面。</div>
+    </div>
+
+    <div class="code term" style="left:70px;top:452px;width:960px;font-size:12px">实测：greeter.ts + consumer.ts 同时挂载，两种行序输出一致 → <span class="s">Hello, world!</span>   ；
+只留 consumer.ts（无提供方）→ <span class="r">(no output)，exit=0</span>   ；consumer.ts 单独用 ctx.get('greeter') → <span class="s">no greeter available</span></div>
+
+    <div class="fig-no">Cordis 教程 · 第 4 章</div>
+  </div>
+</section>
+
+<section class="figure" id="fig-reactive-deps">
+  <div class="canvas">
+    <div class="kicker">图 4-2 · 依赖是连续的</div>
+    <h2>inject 不是只检查一次</h2>
+    <div class="sub">服务消失 → 依赖它的插件一起卸载；服务回来 → 它们再加载。这是热替换能安全换提供方的原因。</div>
+
+    <div class="node blue" style="left:60px;top:150px;width:210px;padding:11px 13px"><div class="t" style="font-size:14.5px">[t=150] 挂载提供方</div></div>
+    <div class="node teal" style="left:330px;top:150px;width:210px;padding:11px 13px"><div class="t" style="font-size:14.5px">consumer 进入 ACTIVE</div></div>
+    <div class="node amber" style="left:600px;top:150px;width:210px;padding:11px 13px"><div class="t" style="font-size:14.5px">[t=400] dispose 提供方</div></div>
+    <div class="node red" style="left:840px;top:150px;width:200px;padding:11px 13px"><div class="t" style="font-size:14.5px">consumer 卸载并回卷 effect</div></div>
+    <div class="arrow h" style="left:272px;top:180px;width:56px"></div>
+    <div class="arrow h" style="left:542px;top:180px;width:56px"></div>
+    <div class="arrow h" style="left:812px;top:180px;width:26px"></div>
+
+    <div class="code term" style="left:60px;top:250px;width:480px;font-size:12px">实测（exp-reactive.ts）
+  consumer ACTIVE, value = dyn   <span class="c">← 提供方出现后才启动</span>
+[t=400] dispose provider
+  consumer effect reversed (unloaded)
+[t=650] mount provider again
+  provider ACTIVE
+  consumer ACTIVE, value = dyn   <span class="c">← 自动重新加载</span></div>
+
+    <div class="node violet" style="left:580px;top:268px;width:460px;padding:12px 14px">
+      <div class="t">机制</div>
+      <div class="s"><code class="mono">provide</code> 的 disposer 调用 <code class="mono">reflect.notify([name])</code>；它扫描所有 <code class="mono">inject</code> 含该名字的 fiber，用依赖提供方的 <code class="mono">fiber.uid</code> 拼出 epoch：值变了就重启，缺了就卸载。</div>
+    </div>
+
+    <div class="note blue" style="left:580px;top:404px;width:460px"><b>可替换性的来源</b><br>卸载 <code class="mono">dsh-bash-local</code>、挂上另一个 <code class="mono">shell</code> 提供方：所有注入 <code class="mono">'shell'</code> 的插件重启并用新实现，消费方一行代码都不用改。</div>
+
+    <div class="note amber" style="left:60px;top:452px;width:480px"><b>代价</b>：消费方必须假设自己会被重启，不能把状态留在模块顶层；跨重启的状态请交给服务实例或专门的持久化插件。</div>
+
+    <div class="fig-no">Cordis 教程 · 第 4 章</div>
+  </div>
+</section>
+
+<!-- ───────────────────────── 第 5 章 ───────────────────────── -->
+<section class="figure" id="fig-dispatch-modes">
+  <div class="canvas">
+    <div class="kicker">图 5-1 · 分发模式</div>
+    <h2>五种分发，只有两种收集返回值</h2>
+    <div class="sub">模式是事件公开约定的一部分；写插件前先确认它属于哪一种。</div>
+
+    <table class="grid" style="left:56px;top:150px;width:988px">
+      <tr><th style="width:120px">方法</th><th style="width:110px">是否 await</th><th style="width:150px">监听器顺序</th><th style="width:110px">返回值</th><th>短路条件（实测）</th></tr>
+      <tr><td><b>emit</b></td><td>否</td><td>注册顺序</td><td>丢弃</td><td>不会短路；返回的 promise 不被等待，异常只进 logger。</td></tr>
+      <tr><td><b>parallel</b></td><td>是</td><td>并发启动</td><td>丢弃</td><td>不会短路；全部结束才返回，任一失败都会汇成 AggregateError。</td></tr>
+      <tr><td><b>serial</b></td><td>是</td><td>逐个 await</td><td>首个 bail 值</td><td><code>isBailed</code>：非 null、非 false、非 undefined 即胜出并停止后续。</td></tr>
+      <tr><td><b>bail</b></td><td>否</td><td>逐个同步调用</td><td>首个 bail 值</td><td>serial 的同步版；注意 <code>0</code> 和 <code>''</code> 也算 bail 值。</td></tr>
+      <tr><td><b>waterfall</b></td><td>—</td><td>环绕中间件</td><td>链条结果</td><td>监听器不调用 <code>next()</code> 直接返回即<b>否决</b>下游。</td></tr>
+    </table>
+
+    <div class="code term" style="left:56px;top:418px;width:488px;font-size:12px">实测（exp-dispatch.ts）
+  s1 -&gt; undefined
+  s2 -&gt; false
+  s3 -&gt; "hit"
+serial =&gt; hit        <span class="c">← s4 从未运行</span>
+  p1 start (60ms)
+  p2 start (10ms)
+  p2 end
+  p1 end
+parallel =&gt; settled  <span class="c">← 并发启动，一起等待</span></div>
+
+    <div class="code term" style="left:576px;top:418px;width:468px;font-size:12px">实测 bail
+  b1 -&gt; null
+  b2 -&gt; 0
+bail =&gt; 0            <span class="r">← 0 不是 null/false/undefined，算命中</span>
+
+<span class="c">源码</span>
+vendor/cordis/src/events.ts
+  <span class="f">isBailed</span> = v =&gt; v !== null &amp;&amp; v !== false &amp;&amp; v !== undefined</div>
+
+    <div class="fig-no">Cordis 教程 · 第 5 章</div>
+  </div>
+</section>
+
+<section class="figure" id="fig-waterfall-chain">
+  <div class="canvas">
+    <div class="kicker">图 5-2 · waterfall</div>
+    <h2>一次调用，两种结局</h2>
+    <div class="sub">监听器既转换 <code style="font-family:Consolas,monospace">next()</code> 的返回值，也可以用不调用 <code style="font-family:Consolas,monospace">next()</code> 来否决整条链。</div>
+
+    <div class="lane" style="left:56px;top:150px;width:988px;height:216px"><div class="lt">CASE 1 · WATERFALL('DEMO/TRANSFORM', 'HELLO') → "HELLO"</div></div>
+
+    <div class="node blue" style="left:86px;top:200px;width:250px;padding:11px 13px">
+      <div class="t" style="font-size:14.5px">监听器 1 收到 ('hello', next)</div>
+      <div class="s">先 <code class="mono">await next()</code></div>
+    </div>
+    <div class="node teal" style="left:390px;top:200px;width:250px;padding:11px 13px">
+      <div class="t" style="font-size:14.5px">监听器 2 收到 ('hello', next)</div>
+      <div class="s">不含 blocked → 调用 <code class="mono">next()</code></div>
+    </div>
+    <div class="node" style="left:694px;top:200px;width:250px;padding:11px 13px">
+      <div class="t" style="font-size:14.5px">最内层默认逻辑</div>
+      <div class="s">传给 waterfall 的函数返回 <code class="mono">'hello'</code></div>
+    </div>
+    <div class="arrow h" style="left:338px;top:236px;width:50px"></div>
+    <div class="arrow h" style="left:642px;top:236px;width:50px"></div>
+    <div class="arrow h left" style="left:338px;top:300px;width:50px"></div>
+    <div class="arrow h left" style="left:642px;top:300px;width:50px"></div>
+    <div class="alabel" style="left:700px;top:288px">返回 'hello'</div>
+    <div class="alabel" style="left:396px;top:288px">toUpperCase() → 'HELLO'</div>
+    <div class="node amber" style="left:86px;top:300px;width:250px;padding:10px 13px"><div class="t" style="font-size:14px">监听器 1 包装结果</div><div class="s">输出 <b>HELLO</b></div></div>
+
+    <div class="lane" style="left:56px;top:390px;width:988px;height:180px"><div class="lt">CASE 2 · WATERFALL('DEMO/TRANSFORM', 'BLOCKED WORDS') → "** BLOCKED **"</div></div>
+    <div class="node blue" style="left:86px;top:436px;width:250px;padding:10px 13px"><div class="t" style="font-size:14px">监听器 1 调用 next()</div></div>
+    <div class="node red" style="left:390px;top:436px;width:250px;padding:10px 13px"><div class="t" style="font-size:14px">监听器 2 不调用 next()</div><div class="s">直接返回否决值</div></div>
+    <div class="node ghost" style="left:694px;top:436px;width:250px;padding:10px 13px"><div class="t" style="font-size:14px">最内层从未运行</div><div class="s">默认逻辑被跳过</div></div>
+    <div class="arrow h" style="left:338px;top:468px;width:50px"></div>
+    <div class="arrow h dashed" style="left:642px;top:468px;width:50px"></div>
+    <div class="note red" style="left:86px;top:500px;width:858px;padding:9px 13px"><b>纪律</b>：只观察、只标注的 waterfall 监听器必须调用 <code class="mono">next()</code>。日志监听器忘记调用，会悄无声息吞掉所有下游默认行为——这是本仓库的常设规则。</div>
+
+    <div class="fig-no">Cordis 教程 · 第 5 章</div>
+  </div>
+</section>
+
+<!-- ───────────────────────── 第 6 章 ───────────────────────── -->
+<section class="figure" id="fig-config-pipeline">
+  <div class="canvas">
+    <div class="kicker">图 6-1 · 配置流水线</div>
+    <h2>从 YAML 到 <code style="font-family:Consolas,monospace;font-size:26px">apply(ctx, config)</code></h2>
+    <div class="sub">校验通过才会有第二个参数；不通过就不调用 <code style="font-family:Consolas,monospace">apply</code>，但也不会打印错误。</div>
+
+    <div class="code light" style="left:56px;top:158px;width:250px"><span class="c"># cordis.yml</span>
+- id: demo
+  name: './config-demo.ts'
+  config:
+    targets: ['alpha','beta']</div>
+
+    <div class="node" style="left:350px;top:158px;width:200px;padding:11px 13px">
+      <div class="t" style="font-size:14.5px">Entry 解析</div>
+      <div class="s"><code class="mono">import</code> 模块，取出 <code class="mono">Config</code> schema</div>
+    </div>
+    <div class="node blue" style="left:584px;top:158px;width:220px;padding:11px 13px">
+      <div class="t" style="font-size:14.5px">校验 + 补默认值</div>
+      <div class="s">Standard Schema；<code class="mono">internal/config</code> 插值 <code class="mono">!!js</code></div>
+    </div>
+    <div class="node teal" style="left:838px;top:158px;width:206px;padding:11px 13px">
+      <div class="t" style="font-size:14.5px">apply(ctx, config)</div>
+      <div class="s">类型上 <code class="mono">config</code> 可以不带 <code class="mono">?</code></div>
+    </div>
+    <div class="arrow h" style="left:308px;top:200px;width:40px"></div>
+    <div class="arrow h" style="left:552px;top:200px;width:30px"></div>
+    <div class="arrow h" style="left:806px;top:200px;width:30px"></div>
+
+    <div class="arrow v" style="left:694px;top:256px;width:2px;height:56px"></div>
+    <div class="alabel" style="left:706px;top:274px">不合规格</div>
+    <div class="node red" style="left:584px;top:322px;width:220px;padding:11px 13px">
+      <div class="t" style="font-size:14.5px">fiber = FAILED</div>
+      <div class="s"><code class="mono">ctx.logger.error(reason)</code><br>异常不再向上抛</div>
+      <span class="tag" style="background:#FECACA;color:#991B1B">fiber.ts:686-691</span>
+    </div>
+
+    <div class="code term" style="left:56px;top:322px;width:494px;font-size:12px"><span class="c"># 终端实际看到的</span>
+$ node --import tsx ../../vendor/cordis/bin.js
+<span class="c">(no output)   exit=0</span>
+
+<span class="c"># 挂上 log-replay 之后</span>
+buffered messages: 1
+  [error] config-demo — <span class="r">ValidationError: invalid config:</span>
+  - $.targets expected array but got not-an-array (at targets)</div>
+
+    <div class="node amber" style="left:56px;top:498px;width:250px;padding:11px 13px">
+      <div class="t" style="font-size:14.5px">buffer 是最后一站</div>
+      <div class="s">根 logger 只装内存导出器（上限 1000 条），没人回读就不显示。</div>
+    </div>
+    <div class="note blue" style="left:330px;top:498px;width:714px"><b>结论</b>：配置校验失败<b>一定</b>发生，错误文本<b>一定</b>在 <code class="mono">ctx.logger.buffer</code> 里，但默认启动器既不打印也不以 1 退出。官方教程“打印错误后以状态码 1 退出”在当前版本不成立。</div>
+
+    <div class="fig-no">Cordis 教程 · 第 6 章</div>
+  </div>
+</section>
+
+<section class="figure" id="fig-volatile-update">
+  <div class="canvas">
+    <div class="kicker">图 6-2 · volatile 字段</div>
+    <h2>改值不改挂载：哪一半被实测到了</h2>
+    <div class="sub">同一份探针，两条路径。左边只改 volatile 字段，右边 volatile 与普通字段同时改。</div>
+
+    <div class="lane" style="left:56px;top:150px;width:470px;height:300px"><div class="lt">路径 A · 只改 VOLATILE 字段</div></div>
+    <div class="lane" style="left:574px;top:150px;width:470px;height:300px"><div class="lt">路径 B · VOLATILE + 普通字段同时改</div></div>
+
+    <div class="node teal" style="left:86px;top:196px;width:410px;padding:11px 13px">
+      <div class="t" style="font-size:14.5px">apply 只运行一次 ✓</div>
+      <div class="s">实测：编辑 <code class="mono">greeting</code> 后没有第二次 <code class="mono">apply ran</code> → 不重挂，符合文档。</div>
+    </div>
+    <div class="node blue" style="left:86px;top:286px;width:410px;padding:11px 13px">
+      <div class="t" style="font-size:14.5px">internal/config 又触发 4 次 ✓</div>
+      <div class="s">新配置确实被解析、校验过。</div>
+    </div>
+    <div class="node red" style="left:86px;top:376px;width:410px;padding:11px 13px">
+      <div class="t" style="font-size:14.5px">引用没更新 ✗ / 没有通知 ✗</div>
+      <div class="s">300 ms 轮询 <code class="mono">.get()</code> 始终是 <code class="mono">Hello</code>；普通与 <code class="mono">global</code> 两份 <code class="mono">loader/volatile-update</code> 监听都没收到。</div>
+    </div>
+
+    <div class="node amber" style="left:604px;top:196px;width:410px;padding:11px 13px">
+      <div class="t" style="font-size:14.5px">apply 运行两次 ✓</div>
+      <div class="s">实测：第二次 <code class="mono">apply ran</code> 出现 → 走原更新流程（重挂），符合文档“旧引用不更新也不接收通知”。</div>
+    </div>
+    <div class="node ghost" style="left:604px;top:286px;width:410px;padding:11px 13px">
+      <div class="t" style="font-size:14.5px">普通字段变化即重挂</div>
+      <div class="s">包括 <code class="mono">!!js</code> 表达式求值结果变化。</div>
+    </div>
+    <div class="note teal" style="left:604px;top:376px;width:410px">最稳的“改了立刻生效”写法：把字段留在普通字段里，接受重挂，并保证插件能被安全重启（第 4 章 4.4、第 3 章 effect）。</div>
+
+    <div class="code term" style="left:56px;top:478px;width:988px;font-size:12px">实测（路径 A）
+apply ran · [I] hmr watching [ '.' ] · internal/config ×3 · <span class="c">&lt;编辑 cordis.yml：greeting Hello → Howdy&gt;</span> · internal/config ×4 · [I] hmr watching [ '.' ]
+<span class="r">→ 没有第二次 apply ran（✓ 不重挂）；没有 volatile-update；轮询 .get() 仍为 'Hello'（✗ 未观察到提交）</span>
+<span class="c">判定：设计意图（不重挂 + 提交引用 + 一次通知）只被证实了一半。用之前请在你的触发路径上自己复验；错误文本与复跑代码见第 6 章 6.4。</span></div>
+
+    <div class="fig-no">Cordis 教程 · 第 6 章</div>
+  </div>
+</section>
+
+<!-- ───────────────────────── 第 7 章 ───────────────────────── -->
+<section class="figure" id="fig-hmr-flow">
+  <div class="canvas">
+    <div class="kicker">图 7-1 · 热重载时序</div>
+    <h2>保存 <code style="font-family:Consolas,monospace;font-size:26px">hello.ts</code> 之后</h2>
+    <div class="sub">HMR = 先卸载、再加载。它自己不保活事件循环，靠 timer 做去抖，靠 logger 说话。</div>
+
+    <div class="node" style="left:56px;top:160px;width:170px;padding:11px 13px"><div class="t" style="font-size:14px">chokidar 观察</div><div class="s"><code class="mono">root: ['.']</code></div></div>
+    <div class="node" style="left:262px;top:160px;width:170px;padding:11px 13px"><div class="t" style="font-size:14px">去抖合并</div><div class="s"><code class="mono">ctx.debounce</code><br>默认 100 ms</div></div>
+    <div class="node blue" style="left:468px;top:160px;width:190px;padding:11px 13px"><div class="t" style="font-size:14px">分类</div><div class="s">已加载 URL → 模块替换<br>匹配 Include <code class="mono">filename</code> → refresh<br>外部依赖 → <code class="mono">loader.exit()</code></div></div>
+    <div class="node teal" style="left:694px;top:160px;width:160px;padding:11px 13px"><div class="t" style="font-size:14px">卸载旧 fiber</div><div class="s">effect 全部回卷</div></div>
+    <div class="node amber" style="left:890px;top:160px;width:154px;padding:11px 13px"><div class="t" style="font-size:14px">加载新代码</div><div class="s"><code class="mono">apply</code> 再次运行</div></div>
+    <div class="arrow h" style="left:228px;top:196px;width:32px"></div>
+    <div class="arrow h" style="left:434px;top:196px;width:32px"></div>
+    <div class="arrow h" style="left:660px;top:196px;width:32px"></div>
+    <div class="arrow h" style="left:856px;top:196px;width:32px"></div>
+
+    <div class="code term" style="left:56px;top:290px;width:560px;font-size:12px">实测（编辑并保存 hello.ts 后）
+hello from my first plugin
+2026-10-30 12:44:42 [I] hmr watching [ '.' ]
+hello from my EDITED plugin
+2026-10-30 12:44:44 [I] hmr reload plugin at hello.ts</div>
+
+    <div class="note amber" style="left:650px;top:290px;width:394px"><b>两行日志的先后不是契约</b><br>一行是插件的 <code class="mono">console.log</code>，一行是 logger-console 的异步输出。官方样例把 reload 行放在前面，本机放在后面；不变的是“旧实例先卸载、新代码后加载”。</div>
+
+    <div class="node blue" style="left:56px;top:452px;width:300px;padding:11px 13px">
+      <div class="t" style="font-size:14.5px">为什么还要 <code class="mono">timer</code></div>
+      <div class="s">hmr <code class="mono">@Inject('timer')</code>。少了它 → hmr 永久 PENDING，且<b>毫无提示</b>。</div>
+    </div>
+    <div class="node violet" style="left:392px;top:452px;width:300px;padding:11px 13px">
+      <div class="t" style="font-size:14.5px">为什么还要 logger-console</div>
+      <div class="s">hmr 的日志走 logger 服务。少了它 → 热重载照样工作，但你一行都看不见。</div>
+    </div>
+    <div class="node teal" style="left:728px;top:452px;width:316px;padding:11px 13px">
+      <div class="t" style="font-size:14.5px">不需要 <code class="mono">--expose-internals</code></div>
+      <div class="s">实测纯 <code class="mono">node --import tsx</code> 就能模块替换；拿不到 internal 时才回退/抛错。</div>
+    </div>
+
+    <div class="fig-no">Cordis 教程 · 第 7 章</div>
+  </div>
+</section>
+
+<section class="figure" id="fig-entry-metadata">
+  <div class="canvas">
+    <div class="kicker">图 7-2 · 配置项与差分</div>
+    <h2>Loader 按 <code style="font-size:26px;font-family:Consolas,monospace">id</code> 比较，不比行序</h2>
+    <div class="sub">同一个文件、同一次编辑，有没有 <code style="font-family:Consolas,monospace">id</code> 决定了插件会不会被重挂。</div>
+
+    <div class="node" style="left:56px;top:152px;width:240px;padding:11px 14px">
+      <div class="t" style="font-size:15px">Entry 字段全集</div>
+      <div class="s"><code class="mono">name</code> · <code class="mono">id</code> · <code class="mono">config</code> · <code class="mono">group</code> · <code class="mono">disabled</code> · <code class="mono">inject</code> · <code class="mono">isolate</code> · <code class="mono">intercept</code><br><b>没有</b> <code class="mono">enabled</code>。</div>
+    </div>
+
+    <div class="node blue" style="left:56px;top:318px;width:240px;padding:11px 14px">
+      <div class="t" style="font-size:15px">并发启动</div>
+      <div class="s">按 id 建 old/new 映射，<code class="mono">Promise.all</code> 逐个 create / update / remove。<br>所以行序不代表先后。</div>
+    </div>
+
+    <div class="node teal" style="left:56px;top:466px;width:240px;padding:11px 14px">
+      <div class="t" style="font-size:15px">插件自毁会被记回文件</div>
+      <div class="s"><code class="mono">internal/plugin</code> 把条目写成 <code class="mono">disabled: true</code> 并回写 YAML。</div>
+    </div>
+
+    <div class="code light" style="left:330px;top:152px;width:360px;font-size:12px"><span class="c"># 无 id：每次读文件都会拿到新随机 id</span>
+- name: './hello.ts'
+
+<span class="c"># 有 id：稳定标识</span>
+- id: hello
+  name: './hello.ts'</div>
+
+    <table class="grid" style="left:330px;top:286px;width:714px">
+      <tr><th style="width:210px">编辑（都只加了一行注释）</th><th style="width:150px">apply 重跑？</th><th>结论</th></tr>
+      <tr><td>实测 A · 无 <code>id</code></td><td><b>是</b></td><td>被判定为“先删再加” → 重挂</td></tr>
+      <tr><td>实测 B · 有 <code>id</code></td><td>否</td><td>差分认为这一行没变 → 不动</td></tr>
+      <tr><td>实测 C · 有 <code>id</code>，去掉 <code>disabled: true</code></td><td>首次挂载</td><td>启动时不挂，编辑后才挂 → <code>disabled</code> 是保留行不挂载</td></tr>
+    </table>
+
+    <div class="note amber" style="left:330px;top:496px;width:714px"><b>为什么会这样</b>：Include 每次读取都把 YAML 重新解析成全新对象（<code class="mono">read()</code>），而 loader 给缺 id 的行现生成随机十六进制 id（<code class="mono">config/tree.ts:52-59</code>）→ 新旧映射永远对不上。<b>实践规则：从第 7 章起，每一行都写 <code class="mono">id</code>。</b></div>
+
+    <div class="fig-no">Cordis 教程 · 第 7 章</div>
+  </div>
+</section>
+
+<section class="figure" id="fig-pending-tree">
+  <div class="canvas">
+    <div class="kicker">图 7-3 · 静默的四种成因</div>
+    <h2>“没有输出”怎么查</h2>
+    <div class="sub">四条路径都在同一棵树上：先确认 yml 被读到，再看解析、状态、日志。</div>
+
+    <div class="node" style="left:420px;top:146px;width:260px"><div class="t">插件没有输出</div></div>
+
+    <div class="node red" style="left:56px;top:286px;width:250px;padding:11px 13px">
+      <div class="t" style="font-size:14.5px">连别的插件也不输出</div>
+      <div class="s"><code class="mono">cordis.yml</code> 根本没被读到——<code class="mono">ctx.baseUrl</code> 来自 <code class="mono">process.cwd()</code>。</div>
+    </div>
+    <div class="node amber" style="left:330px;top:286px;width:250px;padding:11px 13px">
+      <div class="t" style="font-size:14.5px">只有这一项没输出</div>
+      <div class="s">模块解析失败：路径拼错、或用了 <code class="mono">@cordisjs/*</code> 包名。loader 只 <code class="mono">logger.error</code> 后 <code class="mono">return</code>。</div>
+    </div>
+    <div class="node violet" style="left:604px;top:286px;width:250px;padding:11px 13px">
+      <div class="t" style="font-size:14.5px">buffer 里也没有</div>
+      <div class="s">停在 PENDING：<code class="mono">inject</code> 的服务没有提供方。看注册表快照的 <code class="mono">state=0</code> 与 <code class="mono">inject</code> 键。</div>
+    </div>
+    <div class="node blue" style="left:844px;top:286px;width:200px;padding:11px 13px">
+      <div class="t" style="font-size:14.5px">有输出但看不见错</div>
+      <div class="s">消息进 buffer 时导出器还没就位。</div>
+    </div>
+
+    <div class="arrow v" style="left:470px;top:212px;width:2px;height:72px"></div>
+    <div class="arrow h dashed" style="left:308px;top:248px;width:380px"></div>
+    <div class="arrow v dashed" style="left:180px;top:248px;width:2px;height:36px"></div>
+    <div class="arrow v dashed" style="left:452px;top:248px;width:2px;height:36px"></div>
+    <div class="arrow v dashed" style="left:726px;top:248px;width:2px;height:36px"></div>
+    <div class="arrow v dashed" style="left:942px;top:248px;width:2px;height:36px"></div>
+
+    <div class="code term" style="left:56px;top:398px;width:488px;font-size:12px"><span class="c"># 诊断三件套（第 10 章给完整代码）</span>
+- id: console
+  name: '@deepseek-ai/cordis-plugin-logger-console'
+- id: states
+  name: './exp-states.ts'
+- id: replay
+  name: './log-replay.ts'</div>
+
+    <div class="code term" style="left:576px;top:398px;width:468px;font-size:12px">实测输出（前两项）
+FiberState = {PENDING:0,...,UNLOADING:5}
+  Loader: state=2 uid=1 inject={}
+  Include: state=2 uid=3 inject={"loader":null}
+  needs-timer: <span class="r">state=0 uid=4 inject={"timer":null}</span>
+buffered messages: 1
+  [error] include — Error: Cannot find module ...</div>
+
+    <div class="fig-no">Cordis 教程 · 第 7 章</div>
+  </div>
+</section>
+
+<!-- ───────────────────────── 第 8 章 ───────────────────────── -->
+<section class="figure" id="fig-tool-anatomy">
+  <div class="canvas">
+    <div class="kicker">图 8-1 · defineTool 解剖</div>
+    <h2>一个工具的三层</h2>
+    <div class="sub">面向模型的只有四个字段；执行层负责校验与超时；呈现层把规范值投影成可持久化内容。</div>
+
+    <div class="lane" style="left:56px;top:150px;width:988px;height:112px"><div class="lt">面向模型 · PROJECTTOOLSCHEMA 只保留这四个字段（SCHEMA.TS:641-646）</div></div>
+    <div class="node blue" style="left:86px;top:192px;width:200px;padding:9px 12px"><div class="t" style="font-size:14px">name</div><div class="s"><code class="mono">run_code</code> 是保留名</div></div>
+    <div class="node blue" style="left:312px;top:192px;width:200px;padding:9px 12px"><div class="t" style="font-size:14px">description</div><div class="s">模型据此决定是否调用</div></div>
+    <div class="node blue" style="left:538px;top:192px;width:220px;padding:9px 12px"><div class="t" style="font-size:14px">parameters</div><div class="s">逐属性 <code class="mono">required: true</code></div></div>
+    <div class="node blue" style="left:784px;top:192px;width:230px;padding:9px 12px"><div class="t" style="font-size:14px">deferLoading</div><div class="s">延迟加载标记</div></div>
+
+    <div class="lane" style="left:56px;top:282px;width:988px;height:112px"><div class="lt">执行层</div></div>
+    <div class="node" style="left:86px;top:324px;width:290px;padding:9px 12px"><div class="t" style="font-size:14px">参数校验先于 execute</div><div class="s">模型给的 JSON 文本不合规格 → <code class="mono">ToolArgsError</code>（<code class="mono">INVALID_ARGS</code>）</div></div>
+    <div class="node" style="left:402px;top:324px;width:290px;padding:9px 12px"><div class="t" style="font-size:14px">execute(args, exec)</div><div class="s"><code class="mono">exec</code> 带 callId · name · 已解析并深冻结的 arguments · signal · agent</div></div>
+    <div class="node" style="left:718px;top:324px;width:296px;padding:9px 12px"><div class="t" style="font-size:14px">输出被 schema 强制</div><div class="s">违反 <code class="mono">output.schema</code> → <code class="mono">ToolOutputError</code>；可选 <code class="mono">timeoutMs</code> · <code class="mono">isConcurrencySafe</code></div></div>
+
+    <div class="lane" style="left:56px;top:414px;width:988px;height:112px"><div class="lt">呈现层 · 规范值与模型可见内容是两件事</div></div>
+    <div class="node teal" style="left:86px;top:456px;width:300px;padding:9px 12px"><div class="t" style="font-size:14px">规范值（canonical）</div><div class="s"><code class="mono">execute</code> 的返回值，形状由 <code class="mono">output.schema</code> 声明</div></div>
+    <div class="node teal" style="left:412px;top:456px;width:300px;padding:9px 12px"><div class="t" style="font-size:14px">output.render（Native renderer）</div><div class="s">另行生成 <code class="mono">ContentBlock[]</code>，可持久化</div></div>
+    <div class="node teal" style="left:738px;top:456px;width:276px;padding:9px 12px"><div class="t" style="font-size:14px">presentCall / presentResult…</div><div class="s">展示细节；分类器<b>软</b>校验，失败回退</div></div>
+
+    <div class="arrow v" style="left:232px;top:262px;width:2px;height:60px"></div>
+    <div class="arrow v" style="left:548px;top:262px;width:2px;height:60px"></div>
+    <div class="arrow v" style="left:866px;top:262px;width:2px;height:60px"></div>
+
+    <div class="note blue" style="left:56px;top:548px;width:988px"><b>注册即 effect</b>：<code class="mono">ctx.tools.register(...)</code> 把返回的 disposer 附着到调用插件，卸载时自动注销（<code class="mono">packages/core/tools/src/index.ts:128</code>）。想观察每次调用：<code class="mono">ctx.on('tools/result', ...)</code>，它是 <code class="mono">@mode emit</code>；想在执行前改参数或否决：用 <code class="mono">tools/pre-execute</code>（<code class="mono">waterfall</code>，记得调 <code class="mono">next()</code>）。</div>
+
+    <div class="fig-no">Cordis 教程 · 第 8 章</div>
+  </div>
+</section>
+
+<section class="figure" id="fig-composition-layers">
+  <div class="canvas">
+    <div class="kicker">图 8-2 · 层叠</div>
+    <h2>一个 harness 应用是怎样被组装出来的</h2>
+    <div class="sub">每层都是同一份 YAML 语法；补丁按 <code style="font-family:Consolas,monospace">id</code> 寻址，同一行后写者胜，<code style="font-family:Consolas,monospace">config</code> 整块替换。</div>
+
+    <div class="node ghost" style="left:56px;top:158px;width:200px;padding:11px 13px"><div class="t" style="font-size:14.5px">空根</div><div class="s"><code class="mono">$DSH_HOME/profiles/&lt;name&gt;</code><br><code class="mono">cordis.yml</code></div></div>
+    <div class="node blue" style="left:290px;top:158px;width:200px;padding:11px 13px"><div class="t" style="font-size:14.5px">bundle 补丁</div><div class="s">按 <code class="mono">dsh.profile.bundles</code> 顺序；base 层 531 行</div></div>
+    <div class="node teal" style="left:524px;top:158px;width:200px;padding:11px 13px"><div class="t" style="font-size:14.5px">profile 补丁</div><div class="s"><code class="mono">cordis.patch.yml</code><br>你该编辑的是这个文件</div></div>
+    <div class="node violet" style="left:758px;top:158px;width:150px;padding:11px 13px"><div class="t" style="font-size:14.5px">home 补丁</div><div class="s">后应用 → 更优先</div></div>
+    <div class="node amber" style="left:930px;top:158px;width:114px;padding:11px 13px"><div class="t" style="font-size:14.5px">--patch</div><div class="s">可重复</div></div>
+    <div class="arrow h" style="left:258px;top:200px;width:30px"></div>
+    <div class="arrow h" style="left:492px;top:200px;width:30px"></div>
+    <div class="arrow h" style="left:726px;top:200px;width:30px"></div>
+    <div class="arrow h" style="left:910px;top:200px;width:18px"></div>
+
+    <div class="code light" style="left:56px;top:270px;width:470px;font-size:11.5px"><span class="c"># packages/bundle/base/cordis.patch.yml（节选）</span>
+    - id: tools
+      name: '@deepseek-ai/dsh-tools'
+    - id: tool-executor-native
+      name: '@deepseek-ai/dsh-tool-executor-native'
+    - id: tool-executor-ptc
+      name: '@deepseek-ai/dsh-tool-executor-ptc'
+      disabled: true</div>
+
+    <div class="code light" style="left:560px;top:270px;width:484px;font-size:11.5px"><span class="c"># headless 层：三件事（46 行）</span>
+<span class="c"># 1) 按 id 整块替换 config</span>
+- id: system-prompt
+  config: { personaPrefix: ... }
+<span class="c"># 2) insert 新行，config 里用表达式</span>
+- insert:
+    - name: '@deepseek-ai/dsh-...'
+      config: { task: !!js ctx.headlessStartup.task }
+<span class="c"># 3) 关掉无头模式不该出现的行</span>
+- id: hmr
+  disabled: true</div>
+
+    <div class="note blue" style="left:56px;top:506px;width:988px"><b>把自己的插件加进去只要一个 overlay</b>：<code class="mono">- insert: [ { id: greet-tool, name: './tmp/cordis-tutorial/greet-tool.ts' } ]</code>，然后 <code class="mono">dsh --patch my-greet.patch.yml</code>。相对/绝对路径会被改写成相对<b>补丁文件</b>的 file URL（<code class="mono">packages/boot/app-boot/src/index.ts:547-555</code>）；缺可选补丁文件等于没有这一层，坏文件会响亮失败（<code class="mono">:508-525</code>）。行序不承载加载语义——激活由服务可用性决定。</div>
+
+    <div class="fig-no">Cordis 教程 · 第 8 章</div>
+  </div>
+</section>
+
+<!-- ───────────────────────── 第 9 章 / 第 10 章 / 附录 ───────────────────────── -->
+<section class="figure" id="fig-internals-map">
+  <div class="canvas">
+    <div class="kicker">图 9-1 · 内核对象关系</div>
+    <h2>读 <code style="font-family:Consolas,monospace;font-size:26px">ctx.tools</code> 时经过的五个对象</h2>
+    <div class="sub">属性读不是查表那么轻：它是一次 waterfall，外加沿 fiber 链向上找 <code style="font-family:Consolas,monospace">store</code>。</div>
+
+    <div class="node blue" style="left:56px;top:180px;width:210px;padding:12px 14px">
+      <div class="t" style="font-size:15px">ctx（Proxy）</div>
+      <div class="s"><code class="mono">new Context()</code> 返回 <code class="mono">new Proxy(this, ReflectService.handler)</code></div>
+      <span class="tag" style="background:#C7D2FE;color:#3730A3">context.ts:74, 83</span>
+    </div>
+    <div class="node" style="left:306px;top:180px;width:220px;padding:12px 14px">
+      <div class="t" style="font-size:15px">handler.get</div>
+      <div class="s">特殊属性 → 自有属性 → accessor → <code class="mono">internal/get</code> waterfall</div>
+      <span class="tag" style="background:#E2E8F0;color:#334155">reflect.ts:136-171</span>
+    </div>
+    <div class="node violet" style="left:566px;top:180px;width:220px;padding:12px 14px">
+      <div class="t" style="font-size:15px">fiber.store</div>
+      <div class="s">加载期按 <code class="mono">inject</code> 填好的实现快照；沿 <code class="mono">fiber.parent</code> 向上找</div>
+      <span class="tag" style="background:#DDD6FE;color:#5B21B6">fiber.ts:197-198</span>
+    </div>
+    <div class="node teal" style="left:826px;top:180px;width:218px;padding:12px 14px">
+      <div class="t" style="font-size:15px">ReflectService</div>
+      <div class="s"><code class="mono">provide</code> / <code class="mono">get</code> / <code class="mono">notify</code>；mixin 把方法挂到 ctx 上</div>
+      <span class="tag" style="background:#99F6E4;color:#115E59">reflect.ts:233, 277, 314</span>
+    </div>
+
+    <div class="arrow h" style="left:268px;top:222px;width:36px"></div>
+    <div class="arrow h" style="left:528px;top:222px;width:36px"></div>
+    <div class="arrow h" style="left:788px;top:222px;width:36px"></div>
+
+    <div class="node" style="left:56px;top:316px;width:286px;padding:11px 13px">
+      <div class="t" style="font-size:14.5px">RegistryService</div>
+      <div class="s"><code class="mono">Map&lt;Function, Runtime&gt;</code>；一个回调 = 一条 runtime，其下多个 fiber</div>
+      <span class="tag" style="background:#E2E8F0;color:#334155">registry.ts:197, 316-335</span>
+    </div>
+    <div class="node amber" style="left:378px;top:316px;width:286px;padding:11px 13px">
+      <div class="t" style="font-size:14.5px">epoch 与 uid</div>
+      <div class="s">依赖提供方的 <code class="mono">uid</code> 拼字符串：缺 → INACTIVE；变 → 重启</div>
+      <span class="tag" style="background:#FDE68A;color:#92400E">fiber.ts:611-639</span>
+    </div>
+    <div class="node red" style="left:700px;top:316px;width:344px;padding:11px 13px">
+      <div class="t" style="font-size:14.5px">找不到时抛错，不返回 undefined</div>
+      <div class="s"><code class="mono">cannot get property "x" without inject</code><br><code class="mono">cannot get required service "x" in inactive context</code></div>
+    </div>
+
+    <div class="arrow v dashed" style="left:150px;top:266px;width:2px;height:48px"></div>
+    <div class="arrow v dashed" style="left:520px;top:266px;width:2px;height:48px"></div>
+    <div class="arrow v dashed" style="left:870px;top:266px;width:2px;height:48px"></div>
+
+    <div class="code term" style="left:56px;top:424px;width:488px;font-size:11.5px"><span class="c">// 沿链查找（简化自 reflect.ts:157-170）</span>
+<span class="k">const</span> key = target[symbols.isolate][prop]
+<span class="k">let</span> fiber = ctx.fiber
+<span class="k">while</span> (true) {
+  <span class="k">const</span> impl = fiber.store?.[prop]; <span class="k">if</span> (impl) <span class="k">return</span> impl.value
+  <span class="k">if</span> (prop <span class="k">in</span> fiber.inject) <span class="k">throw</span> error  <span class="c">// 声明了却没就绪</span>
+  <span class="k">if</span> (!fiber.runtime) <span class="k">throw</span> error
+  <span class="k">if</span> (isolateKeyChanged) <span class="k">throw</span> error     <span class="c">// 跨 isolate 边界</span>
+  fiber = fiber.parent.fiber
+}</div>
+
+    <div class="code term" style="left:576px;top:424px;width:468px;font-size:11.5px"><span class="c">// 四个调试入口</span>
+ctx.registry.values()
+  → runtime.fibers → { name, state, uid,
+                       inject, store, entry }
+ctx.logger.buffer   <span class="c">// 被吞掉的启动期日志</span>
+ctx.loader.getTasks() / await()
+  <span class="c">// 还有多少配置项在启动</span>
+fiber.await() / restart() / update(config)</div>
+
+    <div class="fig-no">Cordis 教程 · 第 9 章</div>
+  </div>
+</section>
+
+<section class="figure" id="fig-debug-flow">
+  <div class="canvas">
+    <div class="kicker">图 10-1 · 四问排查法</div>
+    <h2>从“没反应”到定位，最多四步</h2>
+    <div class="sub">每一问都有确定的检查动作和确定的输出。第 2、3 问覆盖绝大多数情况。</div>
+
+    <div class="num" style="left:70px;top:172px">1</div>
+    <div class="node blue" style="left:110px;top:164px;width:280px;padding:11px 13px">
+      <div class="t" style="font-size:15px">yml 被读到了吗</div>
+      <div class="s">你在哪个目录跑的？<code class="mono">ctx.baseUrl = process.cwd()</code>。全静默通常是这里。</div>
+    </div>
+    <div class="num" style="left:70px;top:290px">2</div>
+    <div class="node amber" style="left:110px;top:282px;width:280px;padding:11px 13px">
+      <div class="t" style="font-size:15px">每个 name 能解析吗</div>
+      <div class="s">跑 <code class="mono">log-replay</code> 看 buffer。<code class="mono">Cannot find module</code> = 拼写或 <code class="mono">@cordisjs/*</code>。</div>
+    </div>
+    <div class="num" style="left:520px;top:172px">3</div>
+    <div class="node violet" style="left:560px;top:164px;width:280px;padding:11px 13px">
+      <div class="t" style="font-size:15px">fiber 停在哪一态</div>
+      <div class="s">跑 <code class="mono">exp-states</code>。<code class="mono">state=0</code> 且 <code class="mono">inject</code> 有 <code class="mono">null</code> = 缺提供方。</div>
+    </div>
+    <div class="num" style="left:520px;top:290px">4</div>
+    <div class="node teal" style="left:560px;top:282px;width:280px;padding:11px 13px">
+      <div class="t" style="font-size:15px">消息被吞了吗</div>
+      <div class="s">buffer 有内容但终端空 = ConsoleExporter 挂载晚于消息。</div>
+    </div>
+
+    <div class="arrow h" style="left:400px;top:200px;width:110px"></div>
+    <div class="arrow h" style="left:400px;top:318px;width:110px"></div>
+    <div class="arrow v dashed" style="left:250px;top:238px;width:2px;height:42px"></div>
+    <div class="arrow v dashed" style="left:700px;top:238px;width:2px;height:42px"></div>
+
+    <table class="grid" style="left:868px;top:164px;width:176px">
+      <tr><th>命中后</th></tr>
+      <tr><td>修目录</td></tr>
+      <tr><td>改包名/路径</td></tr>
+      <tr><td>补提供方或 <code>disabled</code> 该行</td></tr>
+      <tr><td>调 yml 行序或延后报错时机</td></tr>
+    </table>
+
+    <div class="code term" style="left:56px;top:410px;width:488px;font-size:12px"><span class="c">// 常见错误文本 → 直接指向修法</span>
+cannot get property "x" <span class="r">without inject</span>       → 加 inject
+cannot set property "x" <span class="r">without provide</span>      → 用 Service / ctx.provide
+<span class="r">INACTIVE_EFFECT</span> cannot create effect on ...   → 已 dispose 的上下文
+<span class="r">invalid plugin</span>, expect function or ...        → 三种形态之一
+<span class="r">ValidationError</span>: invalid config: - $.x ...     → 第 6 章</div>
+
+    <div class="code term" style="left:576px;top:410px;width:468px;font-size:12px"><span class="c">// harness 侧两条</span>
+<span class="r">TOOL_EXECUTOR_UNAVAILABLE</span>
+  → 组合里补 @deepseek-ai/dsh-tool-executor-native
+
+整套静默 PENDING（无输出 · exit 0）
+  → dsh-tools 缺 systemPrompt 提供方</div>
+
+    <div class="note red" style="left:56px;top:556px;width:880px"><b>别把“没打印”当“没发生”。</b>加载期异常一律交给 <code class="mono">ctx.logger.error</code>（<code class="mono">fiber.ts:686-691</code>），进程以 0 退出；而 <code class="mono">void (async () =&gt; ...)</code> 里你自己发起的异常照常炸给 Node。前者靠 buffer，后者靠终端。</div>
+
+    <div class="fig-no">Cordis 教程 · 第 10 章</div>
+  </div>
+</section>
+
+<section class="figure" id="fig-source-map">
+  <div class="canvas">
+    <div class="kicker">图 C-1 · 源码地图</div>
+    <h2>要改行为，去哪找代码</h2>
+    <div class="sub">三层：核心运行时、配置层、harness 侧能力。本教程的行号都落在这些目录里。</div>
+
+    <div class="lane" style="left:56px;top:146px;width:988px;height:132px"><div class="lt">核心运行时 · VENDOR/CORDIS/SRC</div></div>
+    <div class="node blue" style="left:76px;top:188px;width:150px;padding:8px 11px"><div class="t" style="font-size:13.5px">context.ts</div><div class="s">Proxy · root · extend · isolate</div></div>
+    <div class="node blue" style="left:240px;top:188px;width:150px;padding:8px 11px"><div class="t" style="font-size:13.5px">reflect.ts</div><div class="s">get/set/provide/notify</div></div>
+    <div class="node blue" style="left:404px;top:188px;width:150px;padding:8px 11px"><div class="t" style="font-size:13.5px">registry.ts</div><div class="s">插件形态 · runtime · fiber</div></div>
+    <div class="node blue" style="left:568px;top:188px;width:150px;padding:8px 11px"><div class="t" style="font-size:13.5px">fiber.ts</div><div class="s">状态机 · effect · epoch</div></div>
+    <div class="node blue" style="left:732px;top:188px;width:140px;padding:8px 11px"><div class="t" style="font-size:13.5px">events.ts</div><div class="s">五种分发</div></div>
+    <div class="node blue" style="left:886px;top:188px;width:140px;padding:8px 11px"><div class="t" style="font-size:13.5px">service.ts · logger.ts · utils.ts</div></div>
+
+    <div class="lane" style="left:56px;top:300px;width:470px;height:168px"><div class="lt">配置层 · VENDOR/LOADER 与 VENDOR/INCLUDE</div></div>
+    <div class="node teal" style="left:76px;top:340px;width:200px;padding:9px 12px"><div class="t" style="font-size:13.5px">loader/src/index.ts</div><div class="s"><code class="mono">loader</code> 服务 · 三个 <code class="mono">internal/*</code> 钩子</div></div>
+    <div class="node teal" style="left:300px;top:340px;width:206px;padding:9px 12px"><div class="t" style="font-size:13.5px">config/entry · group · tree</div><div class="s">字段表 · 按 id 差分 · 解析顺序</div></div>
+    <div class="node teal" style="left:76px;top:416px;width:200px;padding:9px 12px"><div class="t" style="font-size:13.5px">config/isolate.ts · internal.ts</div><div class="s">realm · Node loader 内部</div></div>
+    <div class="node teal" style="left:300px;top:416px;width:206px;padding:9px 12px"><div class="t" style="font-size:13.5px">include/src/index.ts</div><div class="s">YAML · <code class="mono">!!js</code> · <code class="mono">applyEntryPatches</code></div></div>
+
+    <div class="lane" style="left:568px;top:300px;width:476px;height:168px"><div class="lt">HARNESS 侧 · PACKAGES</div></div>
+    <div class="node amber" style="left:588px;top:340px;width:210px;padding:9px 12px"><div class="t" style="font-size:13.5px">core/tools/src</div><div class="s">schema · contracts · index · events · pipeline · executor</div></div>
+    <div class="node amber" style="left:814px;top:340px;width:210px;padding:9px 12px"><div class="t" style="font-size:13.5px">core/system-prompt/src</div><div class="s">服务名 <code class="mono">systemPrompt</code></div></div>
+    <div class="node amber" style="left:588px;top:416px;width:210px;padding:9px 12px"><div class="t" style="font-size:13.5px">boot/hmr · boot/app-boot</div><div class="s"><code class="mono">@deepseek-ai/dsh-hmr</code> · 补丁层加载</div></div>
+    <div class="node amber" style="left:814px;top:416px;width:210px;padding:9px 12px"><div class="t" style="font-size:13.5px">bundle/base · headless · apps/cli</div><div class="s">真实组合 · <code class="mono">--patch</code></div></div>
+
+    <div class="arrow v dashed" style="left:536px;top:282px;width:2px;height:22px"></div>
+    <div class="arrow v dashed" style="left:806px;top:282px;width:2px;height:22px"></div>
+
+    <div class="note blue" style="left:56px;top:490px;width:470px"><b>参考文档</b>：<code class="mono">docs/cordis-tutorial/</code>（官方七章源）、<code class="mono">docs/cordis-api/</code>（context/events/fiber/registry/service/inherited）、<code class="mono">docs/subsystems/core.zh.md</code>（<code class="mono">cordis-surface</code> 区块）、<code class="mono">docs/cordis-primer.zh.md</code>。</div>
+    <div class="note violet" style="left:568px;top:490px;width:476px"><b>上游对照</b>：<code class="mono">cordis/packages/{core,loader,include,group,hmr,timer,logger-console,loader-utils,fs-node,create}</code>，包名 <code class="mono">@cordisjs/*</code>；核心文件同名，符号命名有差。同步流程见 <code class="mono">vendor/README.md</code>。</div>
+
+    <div class="fig-no">Cordis 教程 · 附录 C</div>
+  </div>
+</section>
+
+<section class="figure" id="fig-learning-path">
+  <div class="canvas">
+    <div class="kicker">图 0-1 · 阅读路径</div>
+    <h2>三条线，同一套代码</h2>
+    <div class="sub">第 2 章是共同前置：它解释“为什么没有报错”，后面每一章都会用到这个认识。</div>
+
+    <div class="node blue" style="left:56px;top:150px;width:150px;padding:10px 12px"><div class="t" style="font-size:14px">第 1 章<br>认识 Cordis</div></div>
+    <div class="node blue" style="left:226px;top:150px;width:150px;padding:10px 12px"><div class="t" style="font-size:14px">第 2 章<br>第一个插件</div><div class="s">静默失败机制</div></div>
+    <div class="node" style="left:396px;top:150px;width:150px;padding:10px 12px"><div class="t" style="font-size:14px">第 3 章<br>effect</div></div>
+    <div class="node" style="left:566px;top:150px;width:150px;padding:10px 12px"><div class="t" style="font-size:14px">第 4 章<br>服务/inject</div></div>
+    <div class="node" style="left:736px;top:150px;width:150px;padding:10px 12px"><div class="t" style="font-size:14px">第 5 章<br>事件</div></div>
+    <div class="node" style="left:906px;top:150px;width:138px;padding:10px 12px"><div class="t" style="font-size:14px">第 6 章<br>配置</div></div>
+    <div class="arrow h" style="left:208px;top:178px;width:16px"></div>
+    <div class="arrow h" style="left:378px;top:178px;width:16px"></div>
+    <div class="arrow h" style="left:548px;top:178px;width:16px"></div>
+    <div class="arrow h" style="left:718px;top:178px;width:16px"></div>
+    <div class="arrow h" style="left:888px;top:178px;width:16px"></div>
+
+    <div class="node teal" style="left:56px;top:300px;width:230px"><div class="t" style="font-size:15px">主线：系统学完</div><div class="s">1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 10<br>第 2、3、7 章务必亲手跑。</div></div>
+    <div class="node violet" style="left:310px;top:300px;width:230px"><div class="t" style="font-size:15px">快线：先写 harness 插件</div><div class="s">1 → 2 → 4 → 5 → 8<br>配 <code class="mono">docs/user/develop/basic/</code>。</div></div>
+    <div class="node amber" style="left:564px;top:300px;width:230px"><div class="t" style="font-size:15px">深线：排障与评审</div><div class="s">2 → 7 → 9 → 10 + 附录 A/C<br>直接跳到四问排查法。</div></div>
+    <div class="node ghost" style="left:818px;top:300px;width:226px"><div class="t" style="font-size:15px">第 9 章什么时候读</div><div class="s">当你想知道“为什么”，或准备读源码改行为时。它与第 10 章顺序可互换。</div></div>
+
+    <div class="code term" style="left:56px;top:436px;width:988px;font-size:12px">每一章的实验都在同一个目录，同一条命令：
+  deepseek-harness/tmp/cordis-tutorial/   ·   node --import tsx ../../vendor/cordis/bin.js
+证据分级：<span class="g">实测</span>（逐字输出 + 退出码） · <span class="g">官方教程</span>（docs/cordis-tutorial/*.zh.md） · <span class="g">源码</span>（path:line）   ·   冲突处见第 10 章 10.5 的差异表</div>
+
+    <div class="fig-no">Cordis 教程 · 首页</div>
+  </div>
+</section>
+
+</body>
+</html>
